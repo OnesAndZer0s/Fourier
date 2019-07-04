@@ -1,6 +1,6 @@
-var frequencyInput = -3;
-var orderInput = 50;
-var waveformInput = "sawtooth";
+var frequencyInput = -4;
+var orderInput = 3;
+var waveformInput = "square";
 var canvas = document.querySelector("canvas");
 var context = canvas.getContext("2d");
 
