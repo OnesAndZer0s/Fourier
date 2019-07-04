@@ -1,2 +1,2 @@
-var canvas = document.getElementById('tutorial');
+var canvas = document.getElementById('four');
 var ctx = canvas.getContext('2d');
