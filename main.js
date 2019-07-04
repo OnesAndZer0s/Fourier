@@ -1,6 +1,6 @@
-var frequencyInput = 100;
-var orderInput = 2;
-var waveformInput = "square";
+var frequencyInput = -3;
+var orderInput = 50;
+var waveformInput = "sawtooth";
 var canvas = document.querySelector("canvas");
 var context = canvas.getContext("2d");
 
@@ -53,14 +53,14 @@ function drawWave() {
 		canvas.height = canvas.clientHeight;
 		x = 144.0;
 		y = 128.0;
-		switch (waveformInput.value) {
+		switch (waveformInput) {
 				case "square":
-						for (var order = 0; order <= orderInput.value; order++) {
+						for (var order = 0; order <= orderInput; order++) {
 								fourier((order << 1) + 1);
 						}
 						break;
 				case "sawtooth":
-						for (var order = 1; order <= orderInput.value; order++) {
+						for (var order = 1; order <= orderInput; order++) {
 								fourier(order << 1);
 						}
 						break;
@@ -68,7 +68,7 @@ function drawWave() {
 		connect();
 		drawWave();
 		var now = new Date().getTime();
-		time += (now - startTime) * Math.pow(10.0, frequencyInput.value);
+		time += (now - startTime) * Math.pow(10.0, frequencyInput);
 		startTime = now;
 		window.requestAnimationFrame(frame);
 })();
