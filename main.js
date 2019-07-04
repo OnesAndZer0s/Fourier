@@ -1,6 +1,6 @@
-var frequencyInput = document.querySelector("input[frequency]");
-var orderInput = document.querySelector("input[order]");
-var waveformInput = document.getElementById("waveform").elements["waveform"];
+var frequencyInput = 100;
+var orderInput = 2;
+var waveformInput = "square";
 var canvas = document.querySelector("canvas");
 var context = canvas.getContext("2d");
 
