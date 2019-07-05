@@ -117,8 +117,8 @@ let path = [];
 
   const skip = 0;
   for (let i = 0; i < data.length; i += skip+1) {
-    x.push(data.drawing[i].x);
-    y.push(data.drawing[i].y);
+    x.push(data[i].x);
+    y.push(data[i].y);
   }
   fourierX = dft(x);
   fourierY = dft(y);
