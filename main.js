@@ -1,8 +1,7 @@
 // var frequencyInput = -4;
 // var orderInput = 3;
 // var waveformInput = "square";
-// var canvas = document.querySelector("canvas");
-// var context = canvas.getContext("2d");
+
 
 // var TAU = Math.PI * 2.0;
 // var Scale = 64.0;
@@ -73,6 +72,8 @@
 // 		window.requestAnimationFrame(frame);
 // })();
 
+var canvas = document.querySelector("canvas");
+var context = canvas.getContext("2d");
 
 var drawing = [
 { x: 100, y: 100 },
@@ -141,6 +142,20 @@ function epiCycles(x, y, rotation, fourier) {
 //     ellipse(prevx, prevy, radius * 2);
 //     stroke(255);
 //     line(prevx, prevy, x, y);
+	  
+// 		var phase = order * time * TAU;
+// 		var radius = 4.0 / (order * Math.PI) * Scale;
+// 		context.beginPath();
+// 		context.lineWidth = 1.0;
+// 		context.strokeStyle = "rgba(255,128,32,1.0)";
+// 		context.arc(x, y, radius, 0, TAU);
+// 		context.stroke();
+// 		context.strokeStyle = "rgba(255,255,255,0.4)";
+// 		context.moveTo(x, y);
+// 		x += Math.cos(phase) * radius;
+// 		y += Math.sin(phase) * radius;
+// 		context.lineTo(x, y);
+// 		context.stroke();
   }
 //   return createVector(x, y);
 	return null;
