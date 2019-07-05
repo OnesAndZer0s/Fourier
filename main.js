@@ -81,9 +81,9 @@ var drawing = [
 { x: 100, y: 0 },
 ];
 
-function dft(x) {
+function dft(vals) {
   var X = [];
-  var N = x.length;
+  var N = vals.length;
   for (var k = 0; k < N; k++) {
     var re = 0;
     var im = 0;
@@ -92,8 +92,8 @@ function dft(x) {
       re += x[n] * Math.cos(phi);
       im -= x[n] * Math.sin(phi);
     }
-    re = re / N;
-    im = im / N;
+    //re = re / N;
+    //im = im / N;
 
     var freq = k;
     var amp = Math.sqrt(re * re + im * im);
