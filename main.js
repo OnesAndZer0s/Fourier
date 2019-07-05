@@ -76,19 +76,19 @@
 
 var drawing = [
 { x: 100, y: 100 },
-{ x: -100, y: 100 },
-{ x: -100, y: -100 },
-{ x: 100, y: -100 },
+{ x: 0, y: 100 },
+{ x: 0, y: 0 },
+{ x: 100, y: 0 },
 ];
 
 function dft(x) {
-  const X = [];
-  const N = x.length;
+  let X = [];
+  let N = x.length;
   for (let k = 0; k < N; k++) {
     let re = 0;
     let im = 0;
     for (let n = 0; n < N; n++) {
-      const phi = ( ( Math.PI * 2 ) * k * n) / N;
+      let phi = ( ( Math.PI * 2 ) * k * n) / N;
       re += x[n] * Math.cos(phi);
       im -= x[n] * Math.sin(phi);
     }
