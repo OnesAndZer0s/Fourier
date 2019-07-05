@@ -84,7 +84,7 @@ var drawing = [
 function dft(x) {
   var X = [];
   var N = x.length;
-  for (let k = 0; k < N; k++) {
+  for (var k = 0; k < N; k++) {
     var re = 0;
     var im = 0;
     for (var n = 0; n < N; n++) {
