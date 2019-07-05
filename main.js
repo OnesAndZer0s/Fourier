@@ -92,8 +92,8 @@ function dft(vals) {
       re += x[n] * Math.cos(phi);
       im -= x[n] * Math.sin(phi);
     }
-    //re = re / N;
-    //im = im / N;
+    var re = re / N;
+    var im = im / N;
 
     var freq = k;
     var amp = Math.sqrt(re * re + im * im);
