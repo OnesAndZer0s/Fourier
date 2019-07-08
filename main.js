@@ -1,191 +1,318 @@
-// var frequencyInput = -4;
-// var orderInput = 3;
-// var waveformInput = "square";
+var incre = -1;
+var data = '';
+function saveCookies() {
+setCookie("Path",value("path"),365);
+setCookie("Skip",value("skip"),365);
+setCookie("Speed",value("speed"),365);
+setCookie("RepeatForever",value("repeatForever"),365);
+setCookie("Repeat",value("repeat"),365);
+setCookie("Scale",value("scale"),365);
+setCookie("Style",value("style"),365);
+setCookie("Time",value("time"),365);
+setCookie("StartX",value("startX"),365);
+setCookie("StartY",value("startY"),365);
+setCookie("CircleWidth",value("circleWidth"),365);
+setCookie("CircleColor",value("circleColor"),365);
+setCookie("LineWidth",value("lineWidth"),365);
+setCookie("LineColor",value("lineColor"),365);
+setCookie("DrawWidth",value("drawWidth"),365);
+setCookie("DrawColor",value("drawColor"),365);
+setCookie("Play",value("play"),365);
+setCookie("Sort",value("sort"),365);
+setCookie("RemoveZeros",value("removeZeros"),365);
+}
 
 
-// var TAU = Math.PI * 2.0;
-// var Scale = 64.0;
-// var time = 0.0;
-// var startTime = new Date().getTime();
-// var values = [];
-// var valuePointer = 0;
-// var x = 128.0,
-// 		y = 128.0;
+function loadCookies(){
+id("path").value = getCookie("Path");
+id("skip").value = getCookie("Skip");
+id("speed").value = getCookie("Speed");
+id("repeatForever").checked = eval(getCookie("RepeatForever"));
+id("repeat").value = getCookie("Repeat");
+id("scale").value = Number(getCookie("Scale"));
+id("style").value = getCookie("Style");
+id("time").value = getCookie("Time");
+id("startX").value = getCookie("StartX");
+id("startY").value = getCookie("StartY");
+id("circleWidth").value = getCookie("CircleWidth");
+id("circleColor").value = getCookie("CircleColor");
+id("lineWidth").value = getCookie("LineWidth");
+id("lineColor").value = getCookie("LineColor");
+id("drawWidth").value = getCookie("DrawWidth");
+id("drawColor").value = getCookie("DrawColor");
+id("play").checked = eval(getCookie("Play"));
+id("sort").checked = eval(getCookie("Sort"));
+id("removeZeros").checked = eval(getCookie("RemoveZeros"));
+init();
+}
 
-// function fourier(order) {
-// 		var phase = order * time * TAU;
-// 		var radius = 4.0 / (order * Math.PI) * Scale;
-// 		context.beginPath();
-// 		context.lineWidth = 1.0;
-// 		context.strokeStyle = "rgba(255,128,32,1.0)";
-// 		context.arc(x, y, radius, 0, TAU);
-// 		context.stroke();
-// 		context.strokeStyle = "rgba(255,255,255,0.4)";
-// 		context.moveTo(x, y);
-// 		x += Math.cos(phase) * radius;
-// 		y += Math.sin(phase) * radius;
-// 		context.lineTo(x, y);
-// 		context.stroke();
-// };
+function clearCookies(){
+setCookie("Path","",365);
+setCookie("Skip","0",365);
+setCookie("Speed","1",365);
+setCookie("RepeatForever","false",365);
+setCookie("Repeat","1",365);
+setCookie("Scale","1",365);
+setCookie("Style","0",365);
+setCookie("Time","0",365);
+setCookie("StartX","0",365);
+setCookie("StartY","0",365);
+setCookie("CircleWidth","1",365);
+setCookie("CircleColor","rgba(0,128,128,0.2)",365);
+setCookie("LineWidth","1",365);
+setCookie("LineColor","rgba(0,128,128,1)",365);
+setCookie("DrawWidth","3",365);
+setCookie("DrawColor","rgba(0,0,0,1)",365);
+setCookie("Play","true",365);
+setCookie("Sort","true",365);
+setCookie("RemoveZeros","false",365);}
 
-// function connect() {
-// 		context.beginPath();
-// 		context.moveTo(x + 0.5, y + 0.5);
-// 		context.lineTo(256 + 0.5, y + 0.5);
-// 		context.strokeStyle = "rgba(255,255,32,1.0)";
-// 		context.stroke();
-// };
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+  
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+  
 
-// function drawWave() {
-// 		values[valuePointer++ & 255] = y;
-// 		context.beginPath();
-// 		context.strokeStyle = "rgba(0,255,0,1)";
-// 		context.moveTo(256 + 0.5, y + 0.5);
-// 		for (var i = 1; i < 256; ++i) {
-// 				context.lineTo(256 + i + 0.5, values[(valuePointer - i) & 255] + 0.5);
-// 		}
-// 		context.stroke();
-// }
 
-// (function frame() {
-// 		canvas.width = canvas.clientWidth;
-// 		canvas.height = canvas.clientHeight;
-// 		x = 144.0;
-// 		y = 128.0;
-// 		switch (waveformInput) {
-// 				case "square":
-// 						for (var order = 0; order <= orderInput; order++) {
-// 								fourier((order << 1) + 1);
-// 						}
-// 						break;
-// 				case "sawtooth":
-// 						for (var order = 1; order <= orderInput; order++) {
-// 								fourier(order << 1);
-// 						}
-// 						break;
-// 		}
-// 		connect();
-// 		drawWave();
-// 		var now = new Date().getTime();
-// 		time += (now - startTime) * Math.pow(10.0, frequencyInput);
-// 		startTime = now;
-// 		window.requestAnimationFrame(frame);
-// })();
+function id(id){return document.getElementById(id);}
 
+function value(i){
+if (id(i).type !== "checkbox") {
+if (id(i).type == "number") {
+return Number(id(i).value);
+}else {return id(i).value;
+}}
+else {
+return id(i).checked;}
+}
+
+
+function init() {
+incre++
 var canvas = document.querySelector("canvas");
 var context = canvas.getContext("2d");
 
-var drawing = [
-{ x: 100, y: 100 },
-{ x: 0, y: 100 },
-{ x: 0, y: 0 },
-{ x: 100, y: 0 },
-];
+var Xvalues = [];
+var Yvalues = [];
+var valuePointer = 0;
+var glox = 128.0,
+		gloy = 128.0;
 
-function dft(vals) {
-  var X = [];
-  var N = vals.length;
-  for (var k = 0; k < N; k++) {
-    var re = 0;
-    var im = 0;
-    for (var n = 0; n < N; n++) {
-      var phi = ( ( Math.PI * 2 ) * k * n) / N;
-      re += x[n] * Math.cos(phi);
-      im -= x[n] * Math.sin(phi);
-    }
-    var re = re / N;
-    var im = im / N;
 
-    var freq = k;
-    var amp = Math.sqrt(re * re + im * im);
-    var phase = Math.atan2(im, re);
-    X[k] = { re, im, freq, amp, phase };
-  }
-  return X;
+
+function connect(coordOne, coordTwo) {
+		context.beginPath();
+		context.moveTo(coordOne[0], coordOne[1]);
+		context.lineTo(coordTwo[0], coordTwo[1]);
+		context.strokeStyle = lineColor;
+  	context.lineWidth = lineWidth;
+		context.stroke();
+};
+
+function drawWave() {
+    valuePointer++;
+    Xvalues[valuePointer] = glox;
+    Yvalues[valuePointer] = gloy;
+		context.beginPath();
+    context.lineWidth = drawWidth;
+		context.strokeStyle = drawColor;
+		context.moveTo(glox, gloy);
+		for (var i = 1; i < Xvalues.length; ++i) {
+				context.lineTo(Xvalues[(valuePointer - i)], Yvalues[(valuePointer - i)]);
+		}
+		context.stroke();
 }
 
 
-
-
-let data = drawing;
-
-let x = [];
-let y = [];
-let fourierX;
-let fourierY;
-let time = 0;
-let path = [];
-
-  const skip = 0;
-  for (let i = 0; i < data.length; i += skip+1) {
-    x.push(data[i].x);
-    y.push(data[i].y);
-  }
-  fourierX = dft(x);
-  fourierY = dft(y);
-
-  fourierX.sort((a, b) => b.amp - a.amp);
-  fourierY.sort((a, b) => b.amp - a.amp);
 
 function epiCycles(x, y, rotation, fourier) {
-  for (let i = 0; i < fourier.length; i++) {
-    let prevx = x;
-    let prevy = y;
-    let freq = fourier[i].freq;
-    let radius = fourier[i].amp;
-    let phase = fourier[i].phase;
-    x += radius * Math.cos(freq * time + phase + rotation);
-    y += radius * Math.sin(freq * time + phase + rotation);
-
-//     stroke(255, 100);
-//     noFill();
-//     ellipse(prevx, prevy, radius * 2);
-//     stroke(255);
-//     line(prevx, prevy, x, y);
-	  
-// 		var phase = order * time * TAU;
-// 		var radius = 4.0 / (order * Math.PI) * Scale;
-// 		context.beginPath();
-// 		context.lineWidth = 1.0;
-// 		context.strokeStyle = "rgba(255,128,32,1.0)";
-// 		context.arc(x, y, radius, 0, TAU);
-// 		context.stroke();
-// 		context.strokeStyle = "rgba(255,255,255,0.4)";
-// 		context.moveTo(x, y);
+  for (var i = 0; i < fourier.length; i++) {
+    var prevx = x;
+    var prevy = y;
+    var freq = fourier[i].freq;
+    var radius = fourier[i].amp * scale;
+    var phase = fourier[i].phase;
+    x += radius * Math.cos(freq * subtime + phase + rotation);
+    y += radius * Math.sin(freq * subtime + phase + rotation);
+    
+		//var phase = order * time * TAU;
+		//var radius = 4.0 / (order * Math.PI) * Scale;
+		context.beginPath();
+		context.lineWidth = circleWidth;
+		context.strokeStyle = circleColor;
+    context.arc(x, y, radius*1, 0, Math.PI * 2.0);
+		context.stroke();
+		context.strokeStyle = circleColor;
+		context.lineWidth = circleWidth;
+		context.moveTo(prevx, prevy);
+    context.lineTo(x, y);
 // 		x += Math.cos(phase) * radius;
 // 		y += Math.sin(phase) * radius;
-// 		context.lineTo(x, y);
-// 		context.stroke();
+		context.stroke();
   }
 //   return createVector(x, y);
-	return null;
+	return [x,y];
 }
 
-// function draw() {
-//   background(0);
+function dft(vals,sort) {
+  var newArr = [];
+  var length = vals.length;
+  for (var k = 0; k < length; k++) {
+    var re = 0;
+    var im = 0;
+    for (var n = 0; n < length; n++) {
+      var phi = ( ( Math.PI * 2 ) * k * n) / length;
+      re += vals[n] * Math.cos(phi);
+      im -= vals[n] * Math.sin(phi);
+    }
 
-//   let vx = epiCycles(width / 2 + 100, 100, 0, fourierX);
-//   let vy = epiCycles(100, height / 2 + 100, HALF_PI, fourierY);
-//   let v = createVector(vx.x, vy.y);
-//   path.unshift(v);
-//   line(vx.x, vx.y, v.x, v.y);
-//   line(vy.x, vy.y, v.x, v.y);
+    var freq = k;
+    var amp = Math.sqrt( (re * re) + (im * im) );
+    var phase = Math.atan2(im, re);
+    newArr[k] = { re, im, freq, amp, phase };
+  }
+  if (sort == true) {
+  newArr.sort((a, b) => b.amp - a.amp);
+  }
+  return newArr;
+}
 
-//   beginShape();
-//   noFill();
-//   for (let i = 0; i < path.length; i++) {
-//     vertex(path[i].x, path[i].y);
-//   }
-//   endShape();
+function arrToData(arr){
+arr = arr.replace(/[ ]/gm,',');
+arr = arr.replace(/[#]/gm,',');
+arr = arr.split(","); 
+var newArr = [];  
+for (var i = 0; i < arr.length; i += 2) {
+if (!isNaN(Number(arr[i])) && !isNaN(Number(arr[i+1]))) {newArr.push({x: Number(arr[i]), y: Number(arr[i+1])}); } else {console.log(arr[i],arr[i+1]);}
+} 
+return newArr;
+}
+id("startX").max = canvas.clientWidth;
+id("startY").max = canvas.clientHeight;
 
-//   const dt = TWO_PI / fourierY.length;
-//   time += dt;
+var play = value("play");
+var skip = value("skip");
+var speed = value("speed");
+var repeat = value("repeat");
+var scale = value("scale");
+var style = Number(value("style"));
+var time = value("time");
+var sort = value("sort");
+var removeZeros = value("removeZeros");
+var startX = value("startX");
+var startY = value("startY");
 
-//   if (time > TWO_PI) {
-//     time = 0;
-//     path = [];
-//   }
+var circleColor = value("circleColor");
+var circleWidth = value("circleWidth");
+var lineColor = value("lineColor");
+var lineWidth = value("lineWidth");
+var drawColor = value("drawColor");
+var drawWidth = value("drawWidth");
 
-// }
+data = arrToData(value("path"));
+
+if (removeZeros == true) {data = data.filter(function(cur){return cur.x !== 0 && cur.y !== 0})}
+var xArr = [];
+var yArr = [];
+var fourierX;
+var fourierY;
+var subtime = time;
+var path = [];
+
+  for (var i = 0; i < data.length; i += skip+1) {
+    xArr.push(data[i].x);
+    yArr.push(data[i].y);
+  }
+  fourierX = dft(xArr,sort);
+  fourierY = dft(yArr,sort);
+
+var newFourier = '';
+var oldIncre = incre;
+(function frame() {
+setTimeout(function(){
+if (play) {		
+canvas.width = canvas.clientWidth;
+		canvas.height = canvas.clientHeight;
+//     for (var order = 0; order <= orderInput; order++) {
+// 		fourier((order << 1) + 1);
+//     }		
+if (style == 0) {
+var Xcycle = epiCycles(startX,50,0,fourierX);
+glox = Xcycle[0];
+
+var Ycycle = epiCycles(50,startY,Math.PI/2,fourierY);
+gloy = Ycycle[1];
+
+		connect([50,gloy],[glox,gloy]);
+		connect([glox,50],[glox,gloy]);
+		drawWave();
+} else if (style == 1){
+  
+var Xcycle = epiCycles(startX,startY,0,fourierX);
+glox = Xcycle[0];
+
+var Ycycle = epiCycles(startX,startY,Math.PI/2,fourierY);
+gloy = Ycycle[1];
+
+		connect([glox,startY],[glox,gloy]);
+		connect([startX,gloy],[glox,gloy]);
+		drawWave();
+
+} else if (style == 2) {
+var fx = fourierX[0],
+    fy = fourierY[0],
+    radiusX = fx.amp * scale,
+    radiusY = fy.amp * scale;
+
+var Xcycle = epiCycles(startX-radiusX,startY,0,fourierX);
+glox = Xcycle[0];
+
+var Ycycle = epiCycles(startX,startY-radiusY,Math.PI/2,fourierY);
+gloy = Ycycle[1];
+
+		connect([glox,startY],[glox,gloy]);
+		connect([startX,gloy],[glox,gloy]);
+		drawWave();
+
+  
+}
+  
+  let dt = (Math.PI * 2) / fourierY.length;
+  subtime += dt*speed; 
+  
+  
+if (repeat !== Infinity) {
+if (subtime/repeat > (Math.PI * 2)) {
+    subtime = time;
+Xvalues = []; Yvalues = [];
+}}
+
+}
+if (oldIncre == incre) {
+window.requestAnimationFrame(frame);
+}
+}, speed);
+})();
 
 
+}
+
+init();
