@@ -2,5 +2,42 @@
   <body>
     <canvas id="four" width="1000" height="1000"></canvas>
     <script src="main.js"></script>
+<br>
+    Path <input type="text" id="path" placeholder="SVG Path" oninput="init()"><br>
+    <br>
+    Skip <input type="number" id="skip" placeholder=0 value=0 min=0 max=10000 precision=1 oninput="init()"><br>
+    Speed <input type="number" id="speed" placeholder=1 value=1 min=0 max=10000 precision=0.01 oninput="init()"><br>
+    Repeat <input type="checkbox" id="repeatForever" oninput="init()">
+    <input type="number" id="repeat" placeholder=1 value=1 min=1 max=0 precision=1 oninput="init()"><br>
+    Scale <input type="number" id="scale" placeholder=1 value=1 min=0 max=10 precision=0.000000001 oninput="init()"><br>
+    Style <select id="style" oninput="init()">
+      <option value=0>Sides</option>
+      <option value=1>Zero</option>
+      <option value=2>Center</option>
+      <option value=3>One</option>
+    </select><br>
+    Time <input type="number" id="time" placeholder=0 value=0 min=0 max=0 precision=1 oninput="init()"><br>
+    <br>
+    Start X <input type="number" id="startX" placeholder=0 value=0 min=-10000 max=10000 precision=0.1 oninput="init()"><br>
+    Start Y <input type="number" id="startY" placeholder=0 value=0 min=-10000 max=10000 precision=0.1 oninput="init()"><br>
+    <br>
+    Circle Width <input type="number" id="circleWidth" placeholder=1 value=1 min=0 max=100 precision=0.1 oninput="init()"><br>
+    Circle Color <input type="text" id="circleColor" value="rgba(0,128,128,0.2)" placeholder="Circle Color" oninput="init()"><br>
+    <br>
+    Line Width <input type="number" id="lineWidth" placeholder=1 value=1 min=0 max=100 precision=0.1 oninput="init()"><br>
+    Line Color <input type="text" id="lineColor" value="rgba(0,128,128,1)" placeholder="Line Color" oninput="init()"><br>
+    <br>
+    Draw Width <input type="number" id="drawWidth" placeholder=3 value=3 min=0 max=100 precision=0.1 oninput="init()"><br>
+    Draw Color <input type="text" id="drawColor" value="rgba(0,0,0,1)" placeholder="Draw Color" oninput="init()"><br>
+    <br>
+    Play <input type="checkbox" id="play" checked oninput="init()"><br>
+    Sort <input type="checkbox" id="sort" checked oninput="init()"><br>
+    Remove Zeros <input type="checkbox" id="removeZeros" oninput="init()"><br>
+    <br>
+    <button onclick="saveCookies()" >Save Data</button>
+    <button onclick="loadCookies()">Load Data</button>
+    <button onclick="clearCookies()">Clear Data</button>
+    <br>
+    <button onclick="init()">Run</button>
   </body>
 </html>
